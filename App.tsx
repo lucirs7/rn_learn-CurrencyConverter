@@ -1,12 +1,11 @@
 import { StatusBar } from 'expo-status-bar';
-import { useState } from 'react';
-import { SafeAreaView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { useEffect, useState } from 'react';
+import { Alert, SafeAreaView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 
 const currencyPerRupee = {
   DOLLAR: 0.014,
   EURO: 0.012,
   POUND: 0.011,
-  RUBEL: 0.93,
   AUSDOLLAR: 0.2,
   CANDOLLAR: 0.019,
   YEN: 1.54,
@@ -18,11 +17,51 @@ export default function App() {
   const [inputValue, setInputValue] = useState('');
   const [resultValue, setResultValue] = useState(0.0);
 
+  const buttonPressed = (currency: string) => {
+    if (inputValue === '') {
+      Alert.alert('Enter a value, please.');
+    }
+
+    let result: number = 0;
+    switch(currency) {
+      case 'DOLLAR':
+        result = Number.parseInt(inputValue) * currencyPerRupee[currency];
+        break;
+      case 'EURO':
+        result = Number.parseInt(inputValue) * currencyPerRupee[currency];
+        break;
+      case 'POUND':
+        result = Number.parseInt(inputValue) * currencyPerRupee[currency];
+        break;
+      case 'AUSDOLLAR':
+        result = Number.parseInt(inputValue) * currencyPerRupee[currency];
+        break;
+      case 'CANDOLLAR':
+        result = Number.parseInt(inputValue) * currencyPerRupee[currency];
+        break;
+      case 'YEN':
+        result = Number.parseInt(inputValue) * currencyPerRupee[currency];
+        break;
+      case 'DINAR':
+        result = Number.parseInt(inputValue) * currencyPerRupee[currency];
+        break;
+    }
+    
+    setResultValue(result);
+  };
+
+  useEffect(() => {
+    if (inputValue === '') {
+      setResultValue(0);
+    }
+  }, [inputValue]);
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.screenView}>
+        <Text style={styles.mainText}>Convert your money 🤑11</Text>
         <View style={styles.resultContainer}>
-          <Text style={styles.resultValue}>{resultValue}</Text>
+          <Text style={styles.resultValue}>{resultValue.toFixed(3)}</Text>
         </View>
         <View style={styles.inputContainer}>
           <TextInput
@@ -36,8 +75,47 @@ export default function App() {
           />
         </View>
         <View style={styles.buttonContainer}>
-          <TouchableOpacity style={styles.converterButton}>
-            <Text style={styles.converterButtonText}>$</Text>
+          <TouchableOpacity
+              style={styles.converterButton}
+              onPress={() => buttonPressed('DOLLAR')}
+            >
+              <Text style={styles.converterButtonText}>🇺🇸 Dollars ($)</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+              style={styles.converterButton}
+              onPress={() => buttonPressed('EURO')}
+            >
+              <Text style={styles.converterButtonText}>🇪🇺 Euros (€)</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+              style={styles.converterButton}
+              onPress={() => buttonPressed('POUND')}
+            >
+              <Text style={styles.converterButtonText}>🇬🇧 Pounds (£)</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+              style={styles.converterButton}
+              onPress={() => buttonPressed('AUSDOLLAR')}
+            >
+              <Text style={styles.converterButtonText}>🇦🇺 Aus Dollars ($)</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+              style={styles.converterButton}
+              onPress={() => buttonPressed('CANDOLLAR')}
+            >
+              <Text style={styles.converterButtonText}>🇨🇦 Can Dollars ($)</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+              style={styles.converterButton}
+              onPress={() => buttonPressed('YEN')}
+            >
+              <Text style={styles.converterButtonText}>🇨🇳 Yen (¥)</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+              style={styles.converterButton}
+              onPress={() => buttonPressed('DINAR')}
+            >
+              <Text style={styles.converterButtonText}>🇲🇦 Dinhar (د.ك)</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -57,6 +135,12 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
   },
+  mainText: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: 'rgb(175, 15, 105)',
+    marginVertical: 5,
+  },
   resultContainer: {
     height: 70,
     width: 325,
@@ -64,8 +148,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 2,
-    borderColor: 'rgb(250, 115, 205)',
-    backgroundColor: 'rgb(250, 115, 205)',
+    borderColor: 'rgb(175, 15, 105)',
+    backgroundColor: 'rgb(175, 15, 105)',
     borderRadius: 10,
   },
   resultValue: {
@@ -79,7 +163,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 2,
-    borderColor: 'rgb(250, 115, 205)',
+    borderColor: 'rgb(175, 15, 105)',
     borderRadius: 10,
 
   },
@@ -88,25 +172,22 @@ const styles = StyleSheet.create({
     fontSize: 24,
   },
   buttonContainer: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
+    flexDirection: 'column',
     marginTop: 20,
-    borderColor: 'rgb(175, 15, 105)',
-    borderWidth: 2,
-    borderRadius: 10,
   },
   converterButton: {
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'rgb(175, 15, 105)',
-    height: 100,
-    width: '33.3%',
+    backgroundColor: 'rgb(250, 245, 245)',
+    height: 50,
     borderWidth: 2,
-    borderColor: 'rgb(175, 15, 105)',
+    borderColor: 'rgb(250, 255, 255)',
+    borderRadius: 10,
+    marginVertical: 5,
   },
   converterButtonText: {
     fontSize: 20,
     fontWeight: 'bold',
-    color: '#eeeeee'
+    color: 'rgb(175, 15, 105)'
   }
 });
