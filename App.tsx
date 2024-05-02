@@ -1,4 +1,3 @@
-import { StatusBar } from 'expo-status-bar';
 import { useEffect, useState } from 'react';
 import { Alert, Keyboard, SafeAreaView, StyleSheet, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native';
 
@@ -61,7 +60,7 @@ export default function App() {
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <SafeAreaView style={styles.container}>
         <View style={styles.screenView}>
-          <Text style={styles.mainText}>🤑 Convert your rupees ₹</Text>
+          <Text style={styles.mainText}>🤑 Convert your RUPEES (₹)</Text>
           <View style={styles.resultContainer}>
             <Text style={styles.resultValue}>{resultValue.toFixed(3)}</Text>
           </View>
