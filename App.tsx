@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import { useEffect, useState } from 'react';
-import { Alert, SafeAreaView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Alert, Keyboard, SafeAreaView, StyleSheet, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native';
 
 const currencyPerRupee = {
   DOLLAR: 0.014,
@@ -20,6 +20,7 @@ export default function App() {
   const buttonPressed = (currency: string) => {
     if (inputValue === '') {
       Alert.alert('Enter a value, please.');
+      return;
     }
 
     let result: number = 0;
@@ -57,69 +58,71 @@ export default function App() {
   }, [inputValue]);
 
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.screenView}>
-        <Text style={styles.mainText}>Convert your money 🤑11</Text>
-        <View style={styles.resultContainer}>
-          <Text style={styles.resultValue}>{resultValue.toFixed(3)}</Text>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <SafeAreaView style={styles.container}>
+        <View style={styles.screenView}>
+          <Text style={styles.mainText}>🤑 Convert your rupees ₹</Text>
+          <View style={styles.resultContainer}>
+            <Text style={styles.resultValue}>{resultValue.toFixed(3)}</Text>
+          </View>
+          <View style={styles.inputContainer}>
+            <TextInput
+              style={styles.input}
+              selectionColor={'rgb(175, 15, 105)'}
+              keyboardType='numeric'
+              placeholder='Enter a value...'
+              placeholderTextColor={'rgba(175, 15, 105, 0.5)'}
+              value={inputValue}
+              onChangeText={inputValue => {setInputValue(inputValue)}}
+            />
+          </View>
+          <View style={styles.buttonContainer}>
+            <TouchableOpacity
+                style={styles.converterButton}
+                onPress={() => buttonPressed('DOLLAR')}
+              >
+                <Text style={styles.converterButtonText}>🇺🇸 Dollars ($)</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+                style={styles.converterButton}
+                onPress={() => buttonPressed('EURO')}
+              >
+                <Text style={styles.converterButtonText}>🇪🇺 Euros (€)</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+                style={styles.converterButton}
+                onPress={() => buttonPressed('POUND')}
+              >
+                <Text style={styles.converterButtonText}>🇬🇧 Pounds (£)</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+                style={styles.converterButton}
+                onPress={() => buttonPressed('AUSDOLLAR')}
+              >
+                <Text style={styles.converterButtonText}>🇦🇺 Aus Dollars ($)</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+                style={styles.converterButton}
+                onPress={() => buttonPressed('CANDOLLAR')}
+              >
+                <Text style={styles.converterButtonText}>🇨🇦 Can Dollars ($)</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+                style={styles.converterButton}
+                onPress={() => buttonPressed('YEN')}
+              >
+                <Text style={styles.converterButtonText}>🇨🇳 Yen (¥)</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+                style={styles.converterButton}
+                onPress={() => buttonPressed('DINAR')}
+              >
+                <Text style={styles.converterButtonText}>🇲🇦 Dinhar (د.ك)</Text>
+            </TouchableOpacity>
+          </View>
         </View>
-        <View style={styles.inputContainer}>
-          <TextInput
-            style={styles.input}
-            selectionColor={'rgb(175, 15, 105)'}
-            keyboardType='numeric'
-            placeholder='Enter a value...'
-            placeholderTextColor={'rgba(175, 15, 105, 0.5)'}
-            value={inputValue}
-            onChangeText={inputValue => {setInputValue(inputValue)}}
-          />
-        </View>
-        <View style={styles.buttonContainer}>
-          <TouchableOpacity
-              style={styles.converterButton}
-              onPress={() => buttonPressed('DOLLAR')}
-            >
-              <Text style={styles.converterButtonText}>🇺🇸 Dollars ($)</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-              style={styles.converterButton}
-              onPress={() => buttonPressed('EURO')}
-            >
-              <Text style={styles.converterButtonText}>🇪🇺 Euros (€)</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-              style={styles.converterButton}
-              onPress={() => buttonPressed('POUND')}
-            >
-              <Text style={styles.converterButtonText}>🇬🇧 Pounds (£)</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-              style={styles.converterButton}
-              onPress={() => buttonPressed('AUSDOLLAR')}
-            >
-              <Text style={styles.converterButtonText}>🇦🇺 Aus Dollars ($)</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-              style={styles.converterButton}
-              onPress={() => buttonPressed('CANDOLLAR')}
-            >
-              <Text style={styles.converterButtonText}>🇨🇦 Can Dollars ($)</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-              style={styles.converterButton}
-              onPress={() => buttonPressed('YEN')}
-            >
-              <Text style={styles.converterButtonText}>🇨🇳 Yen (¥)</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-              style={styles.converterButton}
-              onPress={() => buttonPressed('DINAR')}
-            >
-              <Text style={styles.converterButtonText}>🇲🇦 Dinhar (د.ك)</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-    </SafeAreaView>
+      </SafeAreaView>
+    </TouchableWithoutFeedback>
   );
 }
 
