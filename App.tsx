@@ -14,7 +14,7 @@ const currencyPerRupee = {
 
 export default function App() {
   const [inputValue, setInputValue] = useState('');
-  const [resultValue, setResultValue] = useState(0.0);
+  const [resultValue, setResultValue] = useState('0.0');
 
   const buttonPressed = (currency: string) => {
     if (inputValue === '') {
@@ -22,28 +22,28 @@ export default function App() {
       return;
     }
 
-    let result: number = 0;
+    let result: string = '0';
     switch(currency) {
       case 'DOLLAR':
-        result = Number.parseInt(inputValue) * currencyPerRupee[currency];
+        result = (Number.parseInt(inputValue) * currencyPerRupee[currency]).toFixed(3).toString() + ' $US';
         break;
       case 'EURO':
-        result = Number.parseInt(inputValue) * currencyPerRupee[currency];
+        result = (Number.parseInt(inputValue) * currencyPerRupee[currency]).toFixed(3).toString() + ' €';
         break;
       case 'POUND':
-        result = Number.parseInt(inputValue) * currencyPerRupee[currency];
+        result = (Number.parseInt(inputValue) * currencyPerRupee[currency]).toFixed(3).toString() + ' £';
         break;
       case 'AUSDOLLAR':
-        result = Number.parseInt(inputValue) * currencyPerRupee[currency];
+        result = (Number.parseInt(inputValue) * currencyPerRupee[currency]).toFixed(3).toString() + ' $AUS';
         break;
       case 'CANDOLLAR':
-        result = Number.parseInt(inputValue) * currencyPerRupee[currency];
+        result = (Number.parseInt(inputValue) * currencyPerRupee[currency]).toFixed(3).toString() + ' $CAN';
         break;
       case 'YEN':
-        result = Number.parseInt(inputValue) * currencyPerRupee[currency];
+        result = (Number.parseInt(inputValue) * currencyPerRupee[currency]).toFixed(3).toString() + ' ¥';
         break;
       case 'DINAR':
-        result = Number.parseInt(inputValue) * currencyPerRupee[currency];
+        result = (Number.parseInt(inputValue) * currencyPerRupee[currency]).toFixed(3).toString() + ' د.ك';
         break;
     }
     
@@ -52,7 +52,7 @@ export default function App() {
 
   useEffect(() => {
     if (inputValue === '') {
-      setResultValue(0);
+      setResultValue('0');
     }
   }, [inputValue]);
 
@@ -62,7 +62,7 @@ export default function App() {
         <View style={styles.screenView}>
           <Text style={styles.mainText}>🤑 Convert your RUPEES (₹)</Text>
           <View style={styles.resultContainer}>
-            <Text style={styles.resultValue}>{resultValue.toFixed(3)}</Text>
+            <Text style={styles.resultValue}>{resultValue}</Text>
           </View>
           <View style={styles.inputContainer}>
             <TextInput
